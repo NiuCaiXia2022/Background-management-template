@@ -4,9 +4,9 @@
     <h2 class="layout-title">imooc-admin</h2>
 
     <!-- 左边菜单 子组件 -->
-    <!-- <SidebarMenu></SidebarMenu> -->
+    <MenuTree :tree="menuList"></MenuTree>
 
-    <el-menu
+    <!-- <el-menu
       active-text-color="#fff"
       background-color="#304157"
       default-active="/profile"
@@ -15,7 +15,7 @@
       router
     >
       <template v-for="(item, index) in menuList" :key="item">
-        <!-- 判断 没有子元素 -->
+        判断 没有子元素
         <template v-if="item && !item.children">
           <el-menu-item :index="item.path">
             <el-icon>
@@ -25,7 +25,7 @@
           </el-menu-item>
         </template>
 
-        <!-- 判断  有子元素 -->
+        判断  有子元素
         <template v-if="item && item.children && item.children.length > 0">
           <el-sub-menu :index="index">
             <template #title>
@@ -33,10 +33,10 @@
                 <svg-icon icon="article"></svg-icon>
               </el-icon>
               <span>{{ item.title }}</span>
-              <!-- 子组件 -->
-              <!-- <SidebarMenu :item="item"></SidebarMenu> -->
+              子组件
+              <SidebarMenu :item="item"></SidebarMenu>
             </template>
-            <!-- 第三层 数据 -->
+            第三层 数据
             <template v-for="(ele, i) in item.children" :key="i">
               <el-menu-item :index="i.path">
                 <el-icon>
@@ -48,11 +48,13 @@
           </el-sub-menu>
         </template>
       </template>
-    </el-menu>
+
+    </el-menu> -->
   </div>
 </template>
 <script setup>
 // import SidebarMenu from './SidebarMenu'
+import MenuTree from './MenuTree'
 
 import { reactive } from 'vue'
 
@@ -66,7 +68,21 @@ const menuList = reactive([
     children: [
       {
         title: '员工管理',
-        path: '/staff'
+        path: '/staff',
+        children: [
+          {
+            title: '员工管理',
+            path: '/staff'
+          },
+          {
+            title: '角色列表',
+            path: '/role'
+          },
+          {
+            title: '权限列表',
+            path: '/remission'
+          }
+        ]
       },
       {
         title: '角色列表',

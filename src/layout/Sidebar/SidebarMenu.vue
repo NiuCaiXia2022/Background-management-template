@@ -1,96 +1,63 @@
 <template>
   <div class="menu-conten">
-    <!-- :default-active="$router.path" -->
-    <el-menu
-      active-text-color="#fff"
-      background-color="#304157"
-      default-active="/profile"
-      text-color="#fff"
-      unique-opened
-      router
-    >
-      <template v-for="(item, index) in item.children" :key="item">
-        <template v-if="item && !item.children">
-          <el-menu-item :index="item.path">
-            <el-icon>
-              <svg-icon icon="personnel"></svg-icon>
-            </el-icon>
-            <span>{{ item.title }}</span>
-          </el-menu-item>
-        </template>
-        <template v-if="item && item.children && item.children.length > 0">
-          <el-sub-menu :index="index">
-            <template #title>
-              <el-icon>
-                <svg-icon icon="article"></svg-icon>
-              </el-icon>
-              <span>{{ item.title }}</span>
-            </template>
-          </el-sub-menu>
-        </template>
-      </template>
-      <!-- <el-menu-item index="/chart">
+    <template v-if="props.data && !props.data.children">
+      <el-menu-item :index="props.data.path">
         <el-icon>
-          <svg-icon icon="article-ranking"></svg-icon>
+          <svg-icon icon="personnel"></svg-icon>
         </el-icon>
-        <span>数据可视化</span>
+        <span>{{ props.data.title }}</span>
       </el-menu-item>
-      <el-sub-menu index="/profile">
-        <template #title>
-          <el-icon><svg-icon icon="personnel"></svg-icon></el-icon>
-          <span>用户</span>
-        </template>
-        <el-menu-item-group>
-          <el-menu-item index="/user/manage">
-            <el-icon>
-              <svg-icon icon="personnel-manage"></svg-icon>
-            </el-icon>
-            员工管理
-          </el-menu-item>
-          <el-menu-item index="/user/role">
-            <el-icon>
-              <svg-icon icon="role"></svg-icon>
-            </el-icon>
-            角色列表
-          </el-menu-item>
-          <el-menu-item index="/user/permission">
-            <el-icon>
-              <svg-icon icon="permission"></svg-icon>
-            </el-icon>
-            权限列表
-          </el-menu-item>
-        </el-menu-item-group>
-      </el-sub-menu>
-      <el-sub-menu index="/article">
+    </template>
+
+    <template
+      v-if="props.data && props.data.children && props.data.children.length > 0"
+    >
+      <el-sub-menu :index="props.data.path">
         <template #title>
           <el-icon>
             <svg-icon icon="article"></svg-icon>
           </el-icon>
-          <span>文章</span>
+          <span>{{ props.data.title }}</span>
         </template>
-        <el-menu-item-group>
-          <el-menu-item index="/article/ranking">
-            <el-icon> <svg-icon icon="article-ranking"></svg-icon></el-icon>
-            文章排名
-          </el-menu-item>
-          <el-menu-item index="/article/create">
-            <el-icon> <svg-icon icon="article-create"></svg-icon></el-icon>
-            创建文章
-          </el-menu-item>
-        </el-menu-item-group>
-      </el-sub-menu> -->
-    </el-menu>
+        <!-- 递归 -->
+        <SidebarMenu
+          v-for="item in props.data.children"
+          :key="item"
+          :data="item"
+        ></SidebarMenu>
+      </el-sub-menu>
+    </template>
+    <!-- <template v-for="(item, index) in props.data" :key="index">
+      第一层数据 判断 没 chiildren
+      <template v-if="item && !item.children">
+        <el-menu-item :index="item.path">
+          <el-icon>
+            <svg-icon icon="personnel"></svg-icon>
+          </el-icon>
+          <span>{{ item.title }}</span>
+        </el-menu-item>
+      </template>
+      第一层数据 判断 有 chiildren
+      <template v-if="item && item.children && item.children.length > 0">
+        <el-sub-menu :index="item">
+          <template #title>
+            <el-icon>
+              <svg-icon icon="article"></svg-icon>
+            </el-icon>
+            <span>{{ item.title }}</span>
+          </template>
+        </el-sub-menu>
+      </template>
+    </template> -->
   </div>
 </template>
 <script setup>
-// import { reactive } from 'vue'
-// import { defineProps } from 'vue'
-// const props = reactive({
-//   item: {
-//     type: Object,
-//     default: () => {}
-//   }
-// })
+import { defineProps } from 'vue'
+const props = defineProps({
+  data: {
+    type: Object,
+    default: () => {}
+  }
+})
 </script>
-// const data = reactive(menuList)
 <style lang="scss" scoped></style>
