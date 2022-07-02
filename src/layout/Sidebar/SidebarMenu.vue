@@ -1,20 +1,35 @@
 <template>
   <div class="menu-conten">
+    <!-- :default-active="$router.path" -->
     <el-menu
       active-text-color="#fff"
       background-color="#304157"
-      :default-active="$router.path"
+      default-active="/profile"
       text-color="#fff"
       unique-opened
       router
     >
-      <el-menu-item index="/profile">
-        <el-icon>
-          <svg-icon icon="personnel"></svg-icon>
-        </el-icon>
-        <span>个人中心</span>
-      </el-menu-item>
-      <el-menu-item index="/chart">
+      <template v-for="(item, index) in item.children" :key="item">
+        <template v-if="item && !item.children">
+          <el-menu-item :index="item.path">
+            <el-icon>
+              <svg-icon icon="personnel"></svg-icon>
+            </el-icon>
+            <span>{{ item.title }}</span>
+          </el-menu-item>
+        </template>
+        <template v-if="item && item.children && item.children.length > 0">
+          <el-sub-menu :index="index">
+            <template #title>
+              <el-icon>
+                <svg-icon icon="article"></svg-icon>
+              </el-icon>
+              <span>{{ item.title }}</span>
+            </template>
+          </el-sub-menu>
+        </template>
+      </template>
+      <!-- <el-menu-item index="/chart">
         <el-icon>
           <svg-icon icon="article-ranking"></svg-icon>
         </el-icon>
@@ -63,9 +78,19 @@
             创建文章
           </el-menu-item>
         </el-menu-item-group>
-      </el-sub-menu>
+      </el-sub-menu> -->
     </el-menu>
   </div>
 </template>
-<script setup></script>
+<script setup>
+// import { reactive } from 'vue'
+// import { defineProps } from 'vue'
+// const props = reactive({
+//   item: {
+//     type: Object,
+//     default: () => {}
+//   }
+// })
+</script>
+// const data = reactive(menuList)
 <style lang="scss" scoped></style>
