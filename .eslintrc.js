@@ -15,7 +15,21 @@ module.exports = {
     quotes: 'error', // 默认
     quotes: 'warn', // 修改为警告
     quotes: 'off', // 修改不校验
-    'space-before-function-paren': 'off', //则表示关闭《⽅法名后增加空格》的规则
-    "vue/multi-word-component-names":"off",
-  }
+    'vue/multi-word-component-names': 'off', //关闭组件命名规则
+    'no-tabs': 'warn',
+    'vue/multi-word-component-names': 'off',
+    'space-before-function-paren' : 0,//小括号检测
+  },
+  overrides: [
+    {
+      files: [
+        '**/__tests__/*.{j,t}s?(x)',
+        '**/tests/unit/**/*.spec.{j,t}s?(x)'
+      ],
+      env: {
+        jest: true
+      }
+    }
+  ],
+  plugins: ['html']
 }
