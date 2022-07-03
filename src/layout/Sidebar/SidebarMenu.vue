@@ -8,59 +8,12 @@
       unique-opened
       router
     >
-      <!-- {{ menuList }} -->
-      <div v-for="item in menuList" :key="item">
-        <template v-if="item && !item.children">
-          <el-menu-item :index="item.path">
-            <el-icon>
-              <svg-icon :icon="item.meta.icon"></svg-icon>
-            </el-icon>
-            <span>{{ item.meta.title }}</span>
-          </el-menu-item>
-        </template>
-
-        <template
-          v-if="
-            item.children && item.children && item.children.length > 0
-          "
-        >
-          <el-sub-menu :index="item">
-            <template #title>
-              <el-icon>
-                <svg-icon :icon="item.meta.icon"></svg-icon>
-              </el-icon>
-              <span>{{ item.meta.title }}</span>
-            </template>
-          </el-sub-menu>
-        </template>
-      </div>
-
-      <!-- <template v-for="item in menuList">
-        <el-menu-item :key="item">
-          <el-icon>
-            <svg-icon icon="personnel"></svg-icon>
-          </el-icon>
-          <span>{{ item.meta.title }}</span>
-        </el-menu-item>
-      </template> -->
-      <!-- <el-menu-item index="/profile">
-        <el-icon>
-          <svg-icon icon="personnel"></svg-icon>
-        </el-icon>
-        <span>个人中心</span>
-      </el-menu-item>
-      <el-sub-menu index="/profile">
-        <template #title>
-          <el-icon>
-            <svg-icon icon="personnel"></svg-icon>
-          </el-icon>
-          <span>用户</span>
-        </template>
-        <el-menu-item-group>
-          <el-menu-item index="1-1">item one</el-menu-item>
-          <el-menu-item index="1-2">item one</el-menu-item>
-        </el-menu-item-group>
-      </el-sub-menu> -->
+      <!-- 子组件 -->
+      <MenuItem
+        v-for="item in menuList"
+        :key="item"
+        :menuList="item"
+      ></MenuItem>
     </el-menu>
 
     <!-- <template v-if="props.data && !props.data.children">
@@ -90,32 +43,13 @@
         ></SidebarMenu>
       </el-sub-menu>
     </template> -->
-
-    <!-- <template v-for="(item, index) in props.data" :key="index">
-      第一层数据 判断 没 chiildren
-      <template v-if="item && !item.children">
-        <el-menu-item :index="item.path">
-          <el-icon>
-            <svg-icon icon="personnel"></svg-icon>
-          </el-icon>
-          <span>{{ item.title }}</span>
-        </el-menu-item>
-      </template>
-      第一层数据 判断 有 chiildren
-      <template v-if="item && item.children && item.children.length > 0">
-        <el-sub-menu :index="item">
-          <template #title>
-            <el-icon>
-              <svg-icon icon="article"></svg-icon>
-            </el-icon>
-            <span>{{ item.title }}</span>
-          </template>
-        </el-sub-menu>
-      </template>
-    </template> -->
   </div>
 </template>
 <script setup>
+// 子组件
+import MenuItem from './MenuItem'
+// 导出 处理菜单数据的方法
+import { filterMenuDate } from '../../utils/menu'
 import { reactive } from 'vue'
 /**
  * 定义菜单数据
@@ -130,7 +64,8 @@ const data = [
     meta: {
       title: '个人中心',
       icon: 'personnel'
-    }
+    },
+    children: []
   },
   {
     path: '/user', // 用户
@@ -146,7 +81,8 @@ const data = [
         meta: {
           title: '员工管理',
           icon: 'personnel-manage'
-        }
+        },
+        children: []
       },
       {
         path: '/user/role', // 角色管理
@@ -193,6 +129,7 @@ const data = [
     ]
   }
 ]
+filterMenuDate(data)
 const menuList = reactive(data)
 // import { defineProps } from 'vue'
 // const props = defineProps({
