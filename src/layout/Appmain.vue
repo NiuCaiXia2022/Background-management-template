@@ -1,6 +1,6 @@
 <template>
   <div class="appmain-content">
-    <!-- appmain -->
+    <!--主区域  appmain -->
 
     <!-- 坑 -->
     <router-view></router-view>
