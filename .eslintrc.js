@@ -20,6 +20,7 @@ module.exports = {
     'vue/multi-word-component-names': 'off',
     'space-before-function-paren': 0, //小括号检测
     'vue/no-useless-template-attributes': 'off', //关闭 template 标签 for循环报错
+    ' vue/no-template-key': 'off' //关闭 template 循环
   },
   overrides: [
     {
