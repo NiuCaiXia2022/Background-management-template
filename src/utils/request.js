@@ -10,6 +10,9 @@ import { ElMessage } from 'element-plus'
 import store from '../store'
 import router from '@/router'
 
+//
+import { isCheckTimeout } from './auth'
+
 // 实例化axios
 const instance = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
@@ -34,12 +37,13 @@ instance.interceptors.request.use(
     // TODO 处理验证头
     if (token) config.headers.Authorization = 'Bearen ' + token
 
-    // if (token) {
-    //   if (isCheckTimeout()) {
-    //     store.dispatch('user/logout')
-    //     router.push('/login')
-    //   }
-    // }
+    // 判断token超时
+    if (token) {
+      if (isCheckTimeout()) {
+        store.dispatch('user/logout') // 调用用户信息
+        router.push('/login') // 在重新登录
+      }
+    }
 
     return config
   },

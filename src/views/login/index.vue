@@ -76,7 +76,7 @@ import util from '../../utils/util'
 // 导入路由
 import { useRouter } from 'vue-router'
 // 封装的时间戳  utils/auth
-// import { setTimeStamp } from '../../utils/auth'
+import { setTimeStamp } from '../../utils/auth'
 
 // 验证 移动到 rule.js
 const LoginForm = ref(null) // 表单验证
@@ -119,8 +119,9 @@ const handleLoginForm = async () => {
 
       const response = await store.dispatch('user/login', newLoginForm)
       console.log(response)
+
       // 当前时间存储本地
-      // setTimeStamp()
+      setTimeStamp()
       // 判断response.token 是否存在  跳转页面
       if (response.token) router.push('/')
     }

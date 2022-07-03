@@ -51,6 +51,11 @@ import MenuItem from './MenuItem'
 // 导出 处理菜单数据的方法
 import { filterMenuDate } from '../../utils/menu'
 import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+console.log(router.getRoutes()) // 获取所有路由信息
+// router.addRoute 动态添加路由
 /**
  * 定义菜单数据
  * 递归组件渲染
@@ -130,6 +135,7 @@ const data = [
   }
 ]
 filterMenuDate(data)
+
 const menuList = reactive(data)
 // import { defineProps } from 'vue'
 // const props = defineProps({

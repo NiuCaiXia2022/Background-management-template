@@ -1,3 +1,5 @@
+// 全局权鉴
+
 // 路由
 import router from './router'
 // vuex
@@ -8,8 +10,7 @@ const whiteList = ['/login']
 
 router.beforeEach(async (to, from, next) => {
   // 获取token
-  const token = store.getters.token
-  // console.log('1234', token)
+  const token = store.getters.token // console.log('1234', token)
   // 获取用户信息
   const userInfo = store.getters.userInfo
 
@@ -26,7 +27,7 @@ router.beforeEach(async (to, from, next) => {
       } else {
         // 没有就调用
         const response = await store.dispatch('user/getUserList') // 调用 用户信息
-        console.log(response)
+        // console.log(response)
 
         // 判断用户信息
         if (response) {

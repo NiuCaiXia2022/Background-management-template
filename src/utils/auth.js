@@ -1,3 +1,5 @@
+// 超时时间
+
 import { TIME_STAMP, TOKEN_TIMEOUT_VALUE } from './constant'
 // 登录  超时
 import Storage from './localstorage'
