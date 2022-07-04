@@ -1,6 +1,11 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Layout from '../layout'
 
+/**
+ * 将路由表的数据处理--变成需要的子路由
+ * 1. 获取所有一级路由
+ */
+
 //  公开路由表
 const publicRoutes = [
   {
@@ -28,7 +33,7 @@ const publicRoutes = [
         component: () => import('../views/chart'),
         meta: {
           title: '数据可视化',
-          icon: 'chart'
+          icon: 'personnel'
         }
       },
       {
@@ -53,7 +58,7 @@ const privateRoutes = [
     component: Layout,
     redirect: 'user/manage',
     meta: {
-      title: 'user',
+      title: '用户',
       icon: 'personnel'
     },
     children: [
